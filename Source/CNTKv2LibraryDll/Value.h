@@ -35,6 +35,15 @@ namespace CNTK
 
         void Unpack() const;
 
+        void EraseIfPacked()
+        {
+            if (!IsPacked())
+                return;
+
+            m_packedData = nullptr;
+            m_packedDataLayout = nullptr;
+        }
+
         const NDShape& Shape() const override { return m_unpackedShape; }
         DeviceDescriptor Device() const override { return m_isPacked ? m_packedData->Device() : Value::Device(); }
         DataType GetDataType() const override { return m_isPacked ? m_packedData->GetDataType() : Value::GetDataType(); }
